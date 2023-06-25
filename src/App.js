@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [sortConfig, setSortConfig] = useState(null);
+  const [ascending, setAscending] = useState(false);
+  const [descending, setDescending] = useState(false);
   const [sortedField, setSortedField] = useState(null);
   const [items, setItems] = useState([]);
   // let newName = [];
@@ -13,17 +14,28 @@ function App() {
   // return newName.sort();
   useEffect(() => {
     setItems(JSONDATA);
-  })
+  });
 
-  
-
+  if (sortedField !== null) {
+    items.sort((a, b) => {
+      console.log("a :", a);
+      console.log("b :", b);
+      if (a.name < b.name)  {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+  }
 
   return (
     <div className="App">
       <table>
         <thead>
           <tr>
-            <th onClick={() => setSortConfig("name")}>Name</th>
+            <th onClick={() => setSortedField("name")}>Name</th>
             <th>Address</th>
             <th>GeoLocation</th>
           </tr>
